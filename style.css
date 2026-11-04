@@ -118,8 +118,7 @@ body::before {
   border-bottom: 2px solid transparent; transition: border-color .2s, color .2s;
 }
 .menu a:hover { border-bottom-color: var(--pastel); }
-body:not(:has(.aba:target)) .menu a[href="#inicio"],
-body:has(#workshops:target) .menu a[href="#workshops"] { border-bottom-color: var(--creme); }
+body:not(:has(.aba:target)) .menu a[href="#inicio"] { border-bottom-color: var(--creme); }
 
 /* ---------- Abas (CSS puro) ---------- */
 .aba { display: none; scroll-margin-top: 130px; }
