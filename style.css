@@ -25,6 +25,9 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+/* Cursor: garfo em pixel art (ponta do dente em 2,5). Nos links também, no lugar da mãozinha. */
+html { cursor: url("img/cursor-garfo.png") 2 5, auto; }
+a, button { cursor: url("img/cursor-garfo.png") 2 5, pointer; }
 body {
   margin: 0;
   background: var(--creme);
