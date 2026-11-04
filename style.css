@@ -1,0 +1,484 @@
+/* Cozinha 1002 · HTML + CSS puro, seguindo o Brandbook (manual da marca)
+   Cores: verde principal, creme neutro, vermelho, verde acinzentado pastel, marrom.
+   Tipos: Noto Serif Display (títulos), Noto Serif Display Itálico (subtítulos), Montserrat (textos).
+   Layout: faixas de largura total; ilustrações botânicas do manual como ornamento; abas por :target (sem JS). */
+:root {
+  --verde: #0b6f4c;
+  --verde-escuro: #085d40;
+  --creme: #f5ebdd;
+  --vermelho: #841d1f;
+  --vermelho-escuro: #6a1618;
+  --pastel: #b0c3a5;
+  --marrom: #40352d;
+
+  --papel: #fbf6ee;
+  --creme-2: #ecdfcb;
+  --marrom-suave: #66574b;
+  --linha: #dccdb6;
+
+  --titulo: "Noto Serif Display", "Playfair Display", Georgia, "Times New Roman", serif;
+  --texto: "Montserrat", "Lato", "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --largura: 1180px;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--creme);
+  color: var(--marrom);
+  font-family: var(--texto);
+  font-size: 16.5px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--vermelho); outline-offset: 3px; }
+.verde :focus-visible, .capa :focus-visible, .rodape :focus-visible, .topo :focus-visible { outline-color: var(--creme); }
+
+.faixa {
+  position: relative;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.miolo { position: relative; max-width: var(--largura); margin-inline: auto; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--titulo); font-weight: 600; line-height: 1.05; text-wrap: balance; }
+
+/* ---------- Ilustrações do manual (PNG nas cores da marca) ---------- */
+.ilustra { display: block; pointer-events: none; background: var(--img) center / contain no-repeat; }
+.i-ramo-capa { --img: url("img/ramo-capa-pastel.png"); aspect-ratio: 900 / 1170; }
+.i-ramo { --img: url("img/ramo-verde.png"); aspect-ratio: 700 / 634; }
+.i-ramo.vermelho { --img: url("img/ramo-vermelho.png"); }
+.i-folhas { --img: url("img/folhas-verde.png"); aspect-ratio: 560 / 515; }
+.i-ravioli { --img: url("img/ravioli-pastel.png"); aspect-ratio: 460 / 445; }
+.i-ravioli.verde { --img: url("img/ravioli-verde.png"); }
+.i-uvas { --img: url("img/uvas-verde.png"); aspect-ratio: 600 / 611; }
+.i-rolo { --img: url("img/rolo-verde.png"); aspect-ratio: 450 / 445; }
+.i-rolo.vermelho { --img: url("img/rolo-vermelho.png"); }
+.i-chapeu { --img: url("img/chapeu-vermelho.png"); aspect-ratio: 500 / 416; }
+.i-chapeu.pastel { --img: url("img/chapeu-pastel.png"); }
+.i-garfo { --img: url("img/garfo-vermelho.png"); aspect-ratio: 500 / 495; }
+img.logo { height: auto; }
+
+/* ---------- Tipografia da marca ---------- */
+.sobrelinha {
+  font-family: var(--texto); font-weight: 500; font-size: 13px;
+  letter-spacing: 0.32em; text-transform: uppercase;
+}
+.titulo { display: grid; justify-items: start; }
+.titulo .t1 { font-size: clamp(38px, 5.4vw, 64px); letter-spacing: -0.01em; color: var(--verde); }
+.titulo .t2 {
+  font-style: italic; font-weight: 400; font-size: clamp(30px, 4.2vw, 50px);
+  color: var(--vermelho); line-height: 1; margin-top: -0.08em; padding-left: 1.4em;
+}
+.titulo.centro { justify-items: center; text-align: center; }
+.titulo.centro .t2 { padding-left: 0; }
+.fio { width: 72px; height: 2px; background: var(--vermelho); border: 0; margin: 0; }
+
+/* ---------- Botões ---------- */
+.botoes { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.botao {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 50px; padding: 12px 28px; border-radius: 3px;
+  font-family: var(--texto); font-weight: 600; font-size: 13.5px;
+  letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none;
+  border: 1.5px solid transparent; transition: background .2s, color .2s, border-color .2s;
+}
+.botao svg { width: 18px; height: 18px; flex: none; }
+.botao-vermelho { background: var(--vermelho); color: var(--creme); }
+.botao-vermelho:hover { background: var(--vermelho-escuro); }
+.botao-claro { border-color: var(--creme); color: var(--creme); }
+.botao-claro:hover { background: var(--creme); color: var(--verde); }
+.botao-verde { border-color: var(--verde); color: var(--verde); }
+.botao-verde:hover { background: var(--verde); color: var(--creme); }
+
+/* ---------- Cabeçalho ---------- */
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--verde);
+}
+.topo { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--verde); color: var(--creme); }
+.topo .miolo {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px 24px; flex-wrap: wrap; padding-block: 10px;
+}
+.marca { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.marca .logo { width: 50px; }
+.marca-nome { display: grid; line-height: 1.1; }
+.marca-nome b { font-family: var(--titulo); font-weight: 600; font-size: 21px; }
+.marca-nome i { font-family: var(--titulo); font-size: 13.5px; color: var(--pastel); }
+.menu { display: flex; flex-wrap: wrap; gap: 4px; }
+.menu a {
+  text-decoration: none; font-weight: 600; font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 10px 14px; min-height: 44px; display: inline-flex; align-items: center;
+  border-bottom: 2px solid transparent; transition: border-color .2s, color .2s;
+}
+.menu a:hover { border-bottom-color: var(--pastel); }
+body:not(:has(.aba:target)) .menu a[href="#inicio"],
+body:has(#workshops:target) .menu a[href="#workshops"] { border-bottom-color: var(--creme); }
+
+/* ---------- Abas (CSS puro) ---------- */
+.aba { display: none; scroll-margin-top: 130px; }
+.aba:target { display: block; animation: entra .5s ease both; }
+.aba:target ~ #inicio { display: none; }
+#inicio { scroll-margin-top: 130px; }
+@keyframes entra { from { opacity: .3; } to { opacity: 1; } }
+
+/* ---------- Capa (topo verde) ---------- */
+.capa { background: var(--verde); color: var(--creme); overflow: hidden; }
+.capa .i-ramo-capa {
+  position: absolute; width: min(46vw, 560px);
+  right: max(-80px, -6vw); top: -40px; opacity: .95;
+}
+.capa .miolo { padding-block: 88px 104px; }
+.capa-texto { position: relative; z-index: 1; display: grid; gap: 26px; justify-items: start; max-width: 620px; }
+.capa .sobrelinha { color: var(--creme); }
+.capa h1 { display: grid; justify-items: start; }
+.capa h1 .t1 {
+  font-weight: 400; text-transform: uppercase; letter-spacing: 0.01em;
+  font-size: clamp(44px, 7.2vw, 92px); line-height: .95; color: var(--creme);
+}
+.capa h1 .t2 {
+  font-style: italic; font-weight: 400; font-size: clamp(36px, 5.6vw, 72px); line-height: 1;
+  color: var(--pastel); padding-left: 1.6em; margin-top: -0.12em;
+}
+.capa .lead { font-size: 17.5px; color: #e7efe3; max-width: 34em; }
+.capa .botoes { margin-top: 6px; }
+
+.medalha {
+  position: absolute; z-index: 1; right: clamp(40px, 12vw, 190px); top: 50%; translate: 0 -50%;
+  width: clamp(220px, 26vw, 330px); aspect-ratio: 1; border-radius: 50%;
+  background: var(--pastel); display: grid; place-items: center;
+  box-shadow: 0 0 0 10px rgba(176, 195, 165, .22);
+}
+.medalha .logo { width: 84%; }
+
+.capa-aba .miolo { padding-block: 72px 80px; }
+.capa-aba h1 .t1 { font-size: clamp(44px, 7vw, 84px); }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chips span {
+  border: 1px solid var(--pastel); color: var(--creme); border-radius: 999px;
+  padding: 6px 16px; font-size: 14px; font-weight: 500;
+}
+
+/* ---------- Seções ---------- */
+.secao .miolo { padding-block: 104px; }
+.secao.junto .miolo { padding-top: 0; }
+.secao.papel { background: var(--papel); }
+.secao.pastel { background: var(--pastel); }
+.cabeca { display: grid; gap: 18px; justify-items: start; margin-bottom: 56px; max-width: 46em; }
+.cabeca.centro { justify-items: center; text-align: center; margin-inline: auto; }
+.cabeca p { color: var(--marrom-suave); font-size: 17px; }
+
+.dupla { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: center; }
+.texto { display: grid; gap: 22px; justify-items: start; }
+.texto > p { color: var(--marrom-suave); max-width: 33em; }
+.texto > p strong { color: var(--marrom); font-weight: 700; }
+
+/* Valores */
+.valores { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+.valores li { display: grid; gap: 10px; justify-items: center; text-align: center; align-content: start; }
+.valores .ilustra { width: 96px; height: 96px; }
+.valores h3 { font-size: 23px; color: var(--verde); }
+.valores p { color: var(--marrom-suave); font-size: 15px; max-width: 16em; }
+
+/* Fotos: espaços reservados com o prato do manual ao fundo */
+.foto {
+  position: relative; overflow: hidden; background: var(--creme-2);
+  aspect-ratio: 4 / 5; max-width: 100%;
+  display: flex; align-items: flex-end; justify-content: flex-start;
+}
+.foto::before {
+  content: ""; position: absolute; inset: 18% 14%; opacity: .14;
+  background: url("img/prato-marrom.png") center / contain no-repeat;
+}
+.foto::after { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(64, 53, 45, .18); pointer-events: none; }
+.foto span {
+  position: relative; margin: 22px; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--marrom-suave);
+}
+.foto.larga { aspect-ratio: 4 / 3; }
+.foto.quadrada { aspect-ratio: 1 / 1; }
+
+/* Nossa história */
+.historia-foto { position: relative; }
+.historia-foto .foto { border-radius: 240px 240px 0 0; }
+.historia-foto .foto::after { border-radius: 230px 230px 0 0; }
+.historia-foto .i-folhas { position: absolute; width: 46%; right: -13%; bottom: -10%; }
+.assinatura-marcy { display: flex; align-items: center; gap: 16px; }
+.assinatura-marcy .logo { width: 72px; }
+.assinatura-marcy span { display: grid; line-height: 1.3; }
+.assinatura-marcy b { font-family: var(--titulo); font-style: italic; font-weight: 500; font-size: 24px; color: var(--vermelho); }
+.assinatura-marcy small { font-size: 12.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--marrom-suave); }
+
+/* Lasanha: bloco no estilo do post do manual */
+.lasanha { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: var(--papel); }
+.lasanha .texto { padding: clamp(32px, 5vw, 64px); align-content: center; border-top: 6px solid var(--vermelho); }
+.lasanha .titulo .t1 { text-transform: uppercase; font-weight: 400; font-size: clamp(38px, 5vw, 60px); line-height: .98; }
+.lasanha .titulo .t2 { font-size: clamp(28px, 3.4vw, 42px); }
+.lasanha .foto { aspect-ratio: auto; min-height: 380px; height: 100%; }
+.selo {
+  display: inline-block; background: var(--vermelho); color: var(--creme);
+  font-size: 11.5px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; padding: 6px 12px;
+}
+
+/* Duas portas */
+.portas { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
+.porta {
+  position: relative; overflow: hidden; text-decoration: none; min-height: 420px;
+  padding: clamp(32px, 4vw, 48px); display: flex; flex-direction: column; justify-content: flex-end; gap: 18px;
+  transition: transform .3s;
+}
+.porta:hover { transform: translateY(-4px); }
+.porta .ilustra { position: absolute; top: 28px; right: 28px; width: 32%; max-width: 160px; opacity: .9; }
+.porta > :not(.ilustra) { position: relative; }
+.porta.verde { background: var(--verde); color: var(--creme); }
+.porta.verde .titulo .t1 { color: var(--creme); }
+.porta.verde .titulo .t2 { color: var(--pastel); }
+.porta.clara { background: var(--papel); border: 1.5px solid var(--verde); }
+.porta .titulo .t1 { font-size: clamp(34px, 4vw, 48px); }
+.porta .titulo .t2 { font-size: clamp(26px, 3vw, 36px); padding-left: 1em; }
+.porta p { max-width: 26em; font-size: 15.5px; opacity: .9; }
+.porta .seta {
+  display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.porta .seta svg { width: 18px; height: 18px; transition: translate .25s; }
+.porta:hover .seta svg { translate: 6px 0; }
+
+/* Como pedir: linha com pontos vermelhos e ícones dos destaques */
+.passos {
+  list-style: none; margin: 0; padding: 0; position: relative;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px;
+}
+.passos::before {
+  content: ""; position: absolute; left: 16.6%; right: 16.6%; top: 66px; height: 1px; background: var(--marrom);
+}
+.passos li { position: relative; display: grid; gap: 12px; justify-items: center; text-align: center; }
+.passos .icone {
+  width: 132px; height: 132px; border-radius: 50%; overflow: hidden;
+  border: 4px solid var(--verde); background: var(--papel);
+}
+.passos .icone img { width: 100%; height: 100%; object-fit: cover; }
+.passos .ponto { width: 14px; height: 14px; border-radius: 50%; background: var(--vermelho); margin-top: 4px; }
+.passos h3 { font-size: 26px; color: var(--verde); }
+.passos p { color: var(--marrom-suave); font-size: 15.5px; max-width: 19em; }
+
+/* Negócios */
+.negocios {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; align-items: center;
+  background: var(--papel); border-left: 10px solid var(--vermelho); padding: clamp(28px, 5vw, 56px);
+  position: relative; overflow: hidden;
+}
+.negocios .i-uvas { position: absolute; width: 220px; right: -30px; bottom: -40px; opacity: .16; }
+.negocios .botoes { position: relative; justify-content: flex-end; }
+.negocios .titulo .t1 { font-size: clamp(34px, 4.2vw, 50px); }
+.negocios .titulo .t2 { font-size: clamp(26px, 3.2vw, 38px); }
+
+/* ---------- Cardápio ---------- */
+.cardapio {
+  position: relative; background: var(--papel); padding: clamp(28px, 6vw, 72px);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px 80px;
+  outline: 1px solid var(--linha); outline-offset: -14px;
+}
+.cardapio-topo { grid-column: 1 / -1; display: grid; gap: 14px; justify-items: center; text-align: center; }
+.cardapio-topo .logo { width: 96px; }
+.cardapio-topo .sobrelinha { color: var(--marrom-suave); font-size: 12px; }
+.grupo { display: grid; gap: 24px; align-content: start; }
+.grupo h3 {
+  font-style: italic; font-weight: 400; font-size: 34px; color: var(--vermelho);
+  display: flex; align-items: center; gap: 16px;
+}
+.grupo h3::after { content: ""; flex: 1; height: 1px; background: var(--vermelho); opacity: .5; }
+.prato { display: grid; gap: 4px; }
+.prato-linha { display: flex; align-items: baseline; gap: 10px; }
+.prato-nome { font-family: var(--titulo); font-weight: 600; font-size: 21px; color: var(--verde); }
+.prato .pontos { flex: 1; min-width: 24px; border-bottom: 2px dotted var(--pastel); translate: 0 -5px; }
+.prato-preco { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.prato p { color: var(--marrom-suave); font-size: 14.5px; }
+.prato .selo { justify-self: start; font-size: 10.5px; padding: 4px 9px; margin-bottom: 2px; }
+.cardapio .i-ramo { position: absolute; width: 150px; top: 24px; right: 24px; opacity: .85; }
+.cardapio .i-ravioli { position: absolute; width: 120px; left: 30px; top: 34px; opacity: .25; }
+
+.galeria { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 20px; }
+.galeria .foto { aspect-ratio: 4 / 5; }
+
+/* ---------- Workshops ---------- */
+.tipos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.tipo { background: var(--papel); display: grid; align-content: start; border-bottom: 4px solid var(--verde); }
+.tipo .foto { aspect-ratio: 4 / 3; }
+.tipo-corpo { padding: 26px 26px 30px; display: grid; gap: 10px; }
+.tipo-num { font-family: var(--titulo); font-style: italic; font-size: 30px; line-height: 1; color: var(--vermelho); }
+.tipo h3 { font-size: 26px; color: var(--verde); }
+.tipo p { color: var(--marrom-suave); font-size: 15px; }
+
+.convite {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 40px; align-items: center;
+  background: var(--verde); color: var(--creme); padding: clamp(28px, 5vw, 56px);
+}
+.convite .i-chapeu { width: 120px; }
+.convite .titulo .t1 { color: var(--creme); font-size: clamp(32px, 4vw, 46px); }
+.convite .titulo .t2 { color: var(--pastel); font-size: clamp(26px, 3vw, 36px); }
+.convite p { color: #e7efe3; margin-top: 10px; }
+
+/* ---------- Rodapé ---------- */
+.rodape { background: var(--verde); color: var(--creme); overflow: hidden; }
+.rodape .i-ramo-capa { position: absolute; width: 380px; left: -110px; bottom: -160px; opacity: .3; rotate: 180deg; }
+.rodape .miolo { padding-block: 96px 64px; display: grid; gap: 56px; }
+.chamada { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 48px; align-items: center; }
+.chamada .medalha-rodape {
+  width: 200px; aspect-ratio: 1; border-radius: 50%; background: var(--verde-escuro);
+  display: grid; place-items: center; box-shadow: 0 0 0 8px rgba(245, 235, 221, .08);
+}
+.chamada .medalha-rodape .logo { width: 86%; }
+.chamada .texto { gap: 24px; }
+.chamada .titulo .t1 { color: var(--creme); }
+.chamada .titulo .t2 { color: var(--pastel); }
+.contatos {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px;
+  border-top: 1px solid rgba(245, 235, 221, .25); padding-top: 36px;
+}
+.contatos div { display: grid; gap: 6px; align-content: start; }
+.contatos .sobrelinha { color: var(--pastel); font-size: 11.5px; letter-spacing: .24em; }
+.contatos p { font-size: 17px; font-weight: 600; user-select: all; }
+.faixa-vermelha { background: var(--vermelho); color: var(--creme); }
+.faixa-vermelha .miolo {
+  padding-block: 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
+  font-size: 14px;
+}
+.faixa-vermelha i { font-family: var(--titulo); font-size: 16px; }
+
+/* ---------- Movimento ---------- */
+/* Animações da aba Início. Tudo em CSS e só para quem não pediu "reduzir movimento".
+   Usam scale/rotate/translate separados para não brigar com o translate da .medalha. */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Capa: o título aparece como massa saindo do rolo, linha por linha */
+  #inicio .capa .sobrelinha { animation: surge .7s ease-out both; }
+  #inicio .capa h1 .t1 { animation: abre-linha .9s cubic-bezier(.2, .7, .2, 1) .15s both; }
+  #inicio .capa h1 .t2 { animation: abre-linha .9s cubic-bezier(.2, .7, .2, 1) .45s both; }
+  #inicio .capa .lead { animation: surge .8s ease-out .7s both; }
+  #inicio .capa .botoes { animation: surge .8s ease-out .85s both; }
+
+  /* Medalha: chega girando como um prato servido na mesa, depois "respira" */
+  #inicio .medalha {
+    animation: serve 1.1s cubic-bezier(.25, 1.4, .5, 1) .3s both, respira 5s ease-in-out 1.6s infinite alternate;
+  }
+
+  /* Ilustrações botânicas balançam devagar, como ao vento */
+  .capa .i-ramo-capa { transform-origin: 90% 0; animation: balanca 9s ease-in-out infinite alternate; }
+  .historia-foto .i-folhas { transform-origin: 20% 100%; animation: balanca 7s ease-in-out infinite alternate-reverse; }
+  .negocios .i-uvas { transform-origin: 50% 0; animation: balanca 8s ease-in-out infinite alternate; }
+
+  /* Selo "A mais pedida" pendurado como etiqueta */
+  .lasanha .selo { transform-origin: 50% -6px; animation: etiqueta 3.2s ease-in-out infinite alternate; }
+
+  /* Valores: cada ilustração faz o seu gesto ao passar o mouse */
+  .valores li:hover .i-rolo { animation: rola .9s ease-in-out; }
+  .valores li:hover .i-chapeu { animation: pula .7s ease-out; }
+  .valores li:hover .i-ramo { animation: sacode .8s ease-in-out; }
+  .valores li:hover .i-garfo { animation: espeta .6s ease-in-out; }
+
+  /* Portas: o ravioli gira e o rolo rola */
+  .porta .ilustra { transition: rotate .6s ease, translate .6s ease; }
+  .porta:hover .i-ravioli { rotate: 18deg; }
+  .porta:hover .i-rolo { translate: -14px 0; rotate: -25deg; }
+
+  /* Como pedir: os ícones inclinam ao passar o mouse */
+  .passos .icone { transition: rotate .4s ease, scale .4s ease; }
+  .passos li:hover .icone { rotate: -6deg; scale: 1.05; }
+
+  /* Entradas ao rolar a página (navegadores com scroll-driven animations; nos outros tudo aparece normal) */
+  @supports (animation-timeline: view()) {
+    .valores li, #inicio .historia-foto, #inicio .dupla .texto, .lasanha, .portas .porta, .negocios {
+      animation: sobe linear both; animation-timeline: view(); animation-range: entry 0% entry 80%;
+    }
+    .valores li:nth-child(2), .portas .porta:nth-child(2) { animation-range: entry 15% entry 95%; }
+    .valores li:nth-child(3) { animation-range: entry 30% cover 30%; }
+    .valores li:nth-child(4) { animation-range: entry 45% cover 40%; }
+    .lasanha .foto { animation: revela linear both; animation-timeline: view(); animation-range: entry 10% cover 40%; }
+
+    /* A linha do "Como pedir" é desenhada e os pontos vermelhos acendem em sequência */
+    .passos::before {
+      transform-origin: left; animation: desenha linear both;
+      animation-timeline: view(); animation-range: entry 40% cover 45%;
+    }
+    .passos .ponto { animation: acende linear both; animation-timeline: view(); animation-range: entry 60% cover 40%; }
+    .passos li:nth-child(2) .ponto { animation-range: entry 80% cover 45%; }
+    .passos li:nth-child(3) .ponto { animation-range: entry 100% cover 50%; }
+    @media (max-width: 760px) {
+      .passos::before { transform-origin: top; animation-name: desenha-vertical; }
+    }
+  }
+}
+
+@keyframes surge { from { opacity: 0; translate: 0 18px; } }
+@keyframes abre-linha {
+  from { opacity: 0; translate: 0 .35em; clip-path: inset(-20% -20% 100% -20%); }
+  to { opacity: 1; translate: 0 0; clip-path: inset(-20% -20% -20% -20%); }
+}
+@keyframes serve { from { opacity: 0; scale: .55; rotate: -50deg; } }
+@keyframes respira {
+  from { box-shadow: 0 0 0 10px rgba(176, 195, 165, .22); }
+  to { box-shadow: 0 0 0 22px rgba(176, 195, 165, .08); }
+}
+@keyframes balanca { from { rotate: -2deg; } to { rotate: 2.5deg; } }
+@keyframes etiqueta { from { rotate: -3deg; } to { rotate: 2deg; } }
+@keyframes rola { 50% { translate: 14px 0; rotate: 40deg; } }
+@keyframes pula { 40% { translate: 0 -14px; rotate: -6deg; } 70% { translate: 0 2px; } }
+@keyframes sacode { 25% { rotate: -9deg; } 60% { rotate: 7deg; } }
+@keyframes espeta { 45% { translate: -6px 8px; } }
+@keyframes sobe { from { opacity: 0; translate: 0 40px; } }
+@keyframes revela { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0); } }
+@keyframes desenha { from { scale: 0 1; } }
+@keyframes desenha-vertical { from { scale: 1 0; } }
+@keyframes acende { from { scale: 0; background: var(--pastel); } 60% { scale: 1.5; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .aba:target { animation: none; }
+  .porta, .botao, .porta .seta svg { transition: none; }
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 1000px) {
+  .medalha { position: relative; right: auto; top: auto; translate: none; margin-top: 48px; width: 240px; }
+  .capa .i-ramo-capa { width: 340px; right: -150px; opacity: .22; }
+  .capa .miolo { padding-block: 64px 72px; }
+  .dupla, .lasanha, .negocios { grid-template-columns: minmax(0, 1fr); }
+  .dupla { gap: 56px; }
+  .historia-foto { max-width: 460px; }
+  .valores { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 48px; }
+  .cardapio { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .contatos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .secao .miolo { padding-block: 76px; }
+  .negocios .botoes { justify-content: flex-start; }
+  .convite { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .lasanha .foto { min-height: 300px; }
+}
+@media (max-width: 760px) {
+  .portas, .tipos, .galeria { grid-template-columns: minmax(0, 1fr); }
+  .galeria .foto:not(:first-child) { display: none; }
+  .galeria .foto:first-child { aspect-ratio: 4 / 3; }
+  .porta { min-height: 340px; }
+  .passos { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .passos::before { left: 50%; right: auto; top: 0; bottom: 0; width: 1px; height: auto; opacity: .25; }
+  .chamada { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .chamada .medalha-rodape { width: 150px; }
+  .cardapio .i-ramo { width: 90px; }
+  .cardapio .i-ravioli { display: none; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .topo .miolo { justify-content: center; }
+  .marca-nome i { display: none; }
+  .menu { justify-content: center; }
+  .menu a { padding: 8px 9px; font-size: 11.5px; letter-spacing: .1em; }
+  .valores, .contatos { grid-template-columns: minmax(0, 1fr); }
+  .capa h1 .t2, .titulo .t2 { padding-left: .6em; }
+  .historia-foto .i-folhas { right: -4%; }
+}

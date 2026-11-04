@@ -1,0 +1,269 @@
+/* Cardápio Cozinha 1002 · HTML + CSS puro, no visual do site e do Brandbook
+   Cores: verde principal, creme neutro, vermelho, verde acinzentado pastel, marrom.
+   Tipos: Noto Serif Display (títulos e itálicos), Montserrat (textos).
+   Layout: página única pensada primeiro para o celular (link da bio), com atalhos por seção. */
+:root {
+  --verde: #0b6f4c;
+  --verde-escuro: #085d40;
+  --creme: #f5ebdd;
+  --vermelho: #841d1f;
+  --vermelho-escuro: #6a1618;
+  --pastel: #b0c3a5;
+  --marrom: #40352d;
+
+  --papel: #fbf6ee;
+  --creme-2: #ecdfcb;
+  --marrom-suave: #66574b;
+  --linha: #dccdb6;
+
+  --titulo: "Noto Serif Display", "Playfair Display", Georgia, "Times New Roman", serif;
+  --texto: "Montserrat", "Lato", "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --largura: 1240px;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--creme); color: var(--marrom);
+  font-family: var(--texto); font-size: 16px; line-height: 1.65; overflow-x: hidden;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--vermelho); outline-offset: 3px; }
+.capa :focus-visible, .chamada :focus-visible, .barra-whats :focus-visible { outline-color: var(--creme); }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--titulo); font-weight: 600; line-height: 1.05; text-wrap: balance; }
+
+.faixa {
+  position: relative;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.miolo { position: relative; max-width: var(--largura); margin-inline: auto; }
+.deco { position: absolute; pointer-events: none; }
+
+.sobrelinha { font-weight: 500; font-size: 12.5px; letter-spacing: .3em; text-transform: uppercase; }
+.titulo { display: grid; justify-items: start; }
+.titulo .t1 { font-size: clamp(40px, 6vw, 68px); color: var(--verde); letter-spacing: -0.01em; }
+.titulo .t2 {
+  font-style: italic; font-weight: 400; font-size: clamp(22px, 2.8vw, 30px); line-height: 1.1;
+  color: var(--vermelho); padding-left: 1.6em; margin-top: 2px;
+}
+
+/* ---------- Botões ---------- */
+.botao {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 52px; padding: 12px 28px; border-radius: 3px; text-decoration: none;
+  font-weight: 600; font-size: 13.5px; letter-spacing: .12em; text-transform: uppercase;
+  background: var(--vermelho); color: var(--creme); transition: background .2s;
+}
+.botao:hover { background: var(--vermelho-escuro); }
+.botao svg { width: 19px; height: 19px; flex: none; }
+
+/* ---------- Capa ---------- */
+.capa { background: var(--verde); color: var(--creme); overflow: hidden; }
+.capa .ramo { width: min(40vw, 460px); right: -90px; top: -60px; opacity: .9; }
+.capa .miolo {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 56px; align-items: center;
+  padding-block: 56px 72px;
+}
+.capa-texto { position: relative; z-index: 1; display: grid; gap: 22px; justify-items: start; }
+.capa .logo { width: 104px; }
+.capa h1 { display: grid; justify-items: start; }
+.capa h1 .t1 {
+  font-weight: 400; text-transform: uppercase; font-size: clamp(46px, 7.4vw, 92px); line-height: .95; color: var(--creme);
+}
+.capa h1 .t2 {
+  font-style: italic; font-weight: 400; font-size: clamp(38px, 5.8vw, 72px); line-height: 1;
+  color: var(--pastel); padding-left: 1.4em; margin-top: -.1em;
+}
+.capa .lead { font-size: 17.5px; color: #e7efe3; max-width: 30em; }
+.capa-foto { position: relative; z-index: 1; justify-self: end; width: 100%; max-width: 440px; }
+.capa-foto img {
+  width: 100%; aspect-ratio: 739 / 760; object-fit: cover;
+  border-radius: 220px 220px 0 0; border: 8px solid var(--creme);
+}
+.capa-foto .selo-preco {
+  position: absolute; left: -26px; bottom: 34px; background: var(--vermelho); color: var(--creme);
+  padding: 12px 18px; display: grid; line-height: 1.2; box-shadow: 0 10px 24px rgba(0, 0, 0, .2);
+}
+.selo-preco small { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; }
+.selo-preco b { font-family: var(--titulo); font-style: italic; font-weight: 500; font-size: 22px; }
+
+/* Atalhos */
+.atalhos { background: var(--verde-escuro); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; box-shadow: 0 6px 18px rgba(0, 0, 0, .08); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 11; background: var(--verde-escuro); }
+.atalhos ul {
+  list-style: none; margin: 0 auto; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 16px;
+}
+.atalhos a {
+  display: inline-flex; align-items: center; min-height: 48px; padding: 0 14px; text-decoration: none;
+  color: var(--creme); font-weight: 600; font-size: 12.5px; letter-spacing: .16em; text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+}
+.atalhos a:hover { border-bottom-color: var(--pastel); }
+
+/* ---------- Seções ---------- */
+.secao { scroll-margin-top: 56px; }
+.secao .miolo { padding-block: 88px; }
+.secao.papel { background: var(--papel); }
+.cabeca { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; margin-bottom: 44px; }
+.embalagem {
+  display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--verde); color: var(--verde);
+  padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 13px; letter-spacing: .08em;
+}
+.embalagem::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--vermelho); }
+
+.preco { font-weight: 700; color: var(--vermelho); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Lasanhas: cartões com foto */
+.lasanhas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.lasanha { background: var(--papel); display: grid; align-content: start; border-bottom: 4px solid var(--verde); }
+.lasanha img { width: 100%; aspect-ratio: 479 / 334; object-fit: cover; }
+.lasanha-corpo { padding: 24px 24px 26px; display: grid; gap: 4px; }
+.lasanha h3 { font-size: 25px; color: var(--verde); }
+.lasanha .desc { font-family: var(--titulo); font-style: italic; font-size: 18px; color: var(--marrom-suave); }
+.lasanha .linha-preco {
+  display: flex; align-items: baseline; gap: 10px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--linha);
+}
+.lasanha .linha-preco span:first-child { font-size: 13px; color: var(--marrom-suave); }
+.lasanha .linha-preco .pontos { flex: 1; }
+.lasanha .preco { font-size: 22px; }
+
+/* Raviolis: lista no estilo de cardápio */
+.ravioli-deco { width: 170px; right: 0; top: 40px; opacity: .14; }
+.lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--vermelho); }
+.item {
+  display: grid; grid-template-columns: 150px minmax(0, 1fr) auto; gap: 20px; align-items: center;
+  padding-block: 18px; border-bottom: 1px solid var(--linha);
+}
+.item img { width: 150px; aspect-ratio: 2 / 1; object-fit: cover; }
+.item h3 { font-size: 21px; color: var(--verde); line-height: 1.15; }
+.item .preco { font-size: 20px; }
+
+/* Molhos */
+.molhos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.molho { position: relative; display: grid; background: var(--papel); }
+.molho img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.molho-corpo { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 22px 24px; }
+.molho h3 { font-size: 24px; color: var(--verde); }
+.molho .preco { font-size: 22px; }
+
+/* ---------- Como pedir ---------- */
+.passos {
+  list-style: none; margin: 0; padding: 0; position: relative;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px;
+}
+.passos::before { content: ""; position: absolute; left: 16.6%; right: 16.6%; top: 62px; height: 1px; background: var(--marrom); }
+.passos li { position: relative; display: grid; gap: 12px; justify-items: center; text-align: center; align-content: start; }
+.passos .icone { width: 124px; height: 124px; border-radius: 50%; overflow: hidden; border: 4px solid var(--verde); background: var(--papel); }
+.passos .icone img { width: 100%; height: 100%; object-fit: cover; }
+.passos .num {
+  width: 30px; height: 30px; border-radius: 50%; background: var(--vermelho); color: var(--creme);
+  display: grid; place-items: center; font-weight: 700; font-size: 13px; margin-top: 2px;
+}
+.passos h3 { font-size: 25px; color: var(--verde); }
+.passos p { color: var(--marrom-suave); font-size: 15px; max-width: 18em; }
+
+.taxas { width: 100%; max-width: 290px; margin: 6px 0 0; display: grid; gap: 6px; text-align: left; }
+.taxas div { display: flex; align-items: baseline; gap: 8px; font-size: 14.5px; }
+.taxas dt { color: var(--marrom); }
+.taxas .pontos { flex: 1; border-bottom: 2px dotted var(--pastel); translate: 0 -4px; min-width: 16px; }
+.taxas dd { margin: 0; }
+.taxas dd.preco { font-size: 15px; }
+
+/* ---------- Chamada final ---------- */
+.chamada { background: var(--verde); color: var(--creme); overflow: hidden; }
+.chamada .ramo { width: 360px; left: -120px; bottom: -150px; opacity: .3; rotate: 180deg; }
+.chamada .miolo {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); gap: 56px; align-items: center; padding-block: 88px;
+}
+.chamada-texto { position: relative; display: grid; gap: 24px; justify-items: start; }
+.chamada h2 { display: grid; justify-items: start; }
+.chamada h2 .t1 { font-size: clamp(40px, 6vw, 70px); color: var(--creme); }
+.chamada h2 .t2 { font-style: italic; font-weight: 400; font-size: clamp(32px, 4.6vw, 54px); color: var(--pastel); padding-left: 1.2em; line-height: 1.05; }
+.whats-numero { display: grid; gap: 2px; }
+.whats-numero span { font-size: 11.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--pastel); }
+.whats-numero b { font-size: 22px; font-weight: 600; user-select: all; }
+.chamada-foto { position: relative; justify-self: center; width: 100%; max-width: 360px; }
+.chamada-foto img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 8px solid var(--creme); }
+.chamada-foto .logo { position: absolute; width: 112px; right: -8px; bottom: -8px; background: var(--verde); border-radius: 50%; padding: 6px; }
+
+.rodape { background: var(--vermelho); color: var(--creme); }
+.rodape .miolo { padding-block: 18px; text-align: center; font-size: 14px; }
+.rodape i { font-family: var(--titulo); font-size: 16px; }
+
+/* Barra fixa do WhatsApp no celular */
+.barra-whats { display: none; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .botao { transition: none; } }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 900px) {
+  .capa .miolo, .chamada .miolo { grid-template-columns: minmax(0, 1fr); }
+  .capa .miolo { gap: 44px; padding-block: 44px 56px; }
+  .capa-foto { justify-self: center; max-width: 360px; }
+  .capa .ramo { width: 300px; right: -140px; opacity: .25; }
+  .lasanhas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lasanhas .lasanha:last-child { grid-column: 1 / -1; }
+  .lasanhas .lasanha:last-child img { aspect-ratio: 16 / 7; }
+  .ravioli-deco { display: none; }
+  .secao .miolo { padding-block: 68px; }
+  .chamada .miolo { padding-block: 68px; }
+}
+@media (max-width: 640px) {
+  body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+  .lasanhas, .molhos { grid-template-columns: minmax(0, 1fr); }
+  .lasanhas .lasanha:last-child img { aspect-ratio: 479 / 334; }
+  .item { grid-template-columns: 96px minmax(0, 1fr) auto; gap: 14px; }
+  .item img { width: 96px; aspect-ratio: 1; }
+  .item h3 { font-size: 18px; }
+  .item .preco { font-size: 17px; }
+  .passos { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .passos::before { display: none; }
+  .capa-foto .selo-preco { left: -6px; }
+  .titulo .t2, .capa h1 .t2, .chamada h2 .t2 { padding-left: .7em; }
+  .atalhos a { padding: 0 9px; font-size: 11.5px; letter-spacing: .12em; }
+  .barra-whats {
+    display: flex; position: fixed; z-index: 20; left: 0; right: 0; bottom: 0;
+    padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+    background: var(--verde); box-shadow: 0 -6px 20px rgba(0, 0, 0, .15);
+  }
+  .barra-whats .botao { width: 100%; }
+}
+
+/* ---------- Computador ---------- */
+@media (min-width: 1100px) {
+  .capa .miolo { min-height: 640px; padding-block: 64px 80px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .capa-foto { max-width: 520px; }
+  .capa .logo { width: 120px; }
+  .capa .lead { font-size: 19px; }
+  .secao .miolo { padding-block: 104px; }
+  .lasanhas { gap: 36px; }
+  .lasanha-corpo { padding: 28px 28px 30px; }
+  .lasanha h3 { font-size: 28px; }
+
+  /* Raviolis em cartões, os cinco na mesma linha */
+  .lista { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; border-top: 0; }
+  .item {
+    display: flex; flex-direction: column; align-items: stretch; gap: 12px; padding: 0 0 20px;
+    background: var(--creme); border-bottom: 4px solid var(--verde);
+  }
+  .item img { width: 100%; aspect-ratio: 4 / 3; }
+  .item h3 { padding: 6px 18px 0; font-size: 21px; }
+  .item .preco { padding: 0 18px; margin-top: auto; font-size: 20px; }
+
+  .molhos { gap: 36px; }
+  .molho-corpo { padding: 26px 28px; }
+  .molho h3 { font-size: 27px; }
+  .passos::before { top: 62px; }
+  .chamada .miolo { padding-block: 104px; }
+  .chamada-foto { max-width: 400px; }
+}
+@media (min-width: 1600px) {
+  :root { --largura: 1360px; }
+  body { font-size: 17px; }
+  .capa .miolo { min-height: 720px; }
+  .capa-foto { max-width: 580px; }
+}
