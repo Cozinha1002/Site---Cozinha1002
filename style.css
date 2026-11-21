@@ -203,6 +203,8 @@ body:not(:has(.aba:target)) .menu a[href="#inicio"] { border-bottom-color: var(-
   position: relative; margin: 22px; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
   color: var(--marrom-suave);
 }
+.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.foto:has(img)::before { display: none; }
 .foto.larga { aspect-ratio: 4 / 3; }
 .foto.quadrada { aspect-ratio: 1 / 1; }
 
